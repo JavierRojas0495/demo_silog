@@ -167,18 +167,30 @@
                     <span class="label-text">Ciudad Origen</span>
                   </label>
                   <div class="input-wrapper">
-                    <select
-                      class="form-select modern-input"
-                      id="ciudadOrigen"
-                      v-model="formulario.ciudadOrigen"
-                      required
-                    >
-                      <option value="">Seleccione una ciudad</option>
-                      <option v-for="ciudad in ciudadesColombia" :key="ciudad" :value="ciudad">
-                        {{ ciudad }}
-                      </option>
-                    </select>
-                    <div class="input-focus-border"></div>
+                    <div class="searchable-select">
+                      <input
+                        type="text"
+                        class="form-control modern-input"
+                        id="ciudadOrigen"
+                        v-model="busquedaOrigen"
+                        @input="filtrarCiudadesOrigen"
+                        @focus="mostrarOpcionesOrigen = true"
+                        @blur="ocultarOpcionesOrigen"
+                        :placeholder="formulario.ciudadOrigen || 'Buscar ciudad de origen...'"
+                        required
+                      >
+                      <div class="input-focus-border"></div>
+                      <div v-if="mostrarOpcionesOrigen && ciudadesFiltradasOrigen.length > 0" class="dropdown-options">
+                        <div 
+                          v-for="ciudad in ciudadesFiltradasOrigen" 
+                          :key="ciudad"
+                          class="dropdown-option"
+                          @mousedown="seleccionarCiudadOrigen(ciudad)"
+                        >
+                          {{ ciudad }}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -190,18 +202,30 @@
                     <span class="label-text">Ciudad Destino</span>
                   </label>
                   <div class="input-wrapper">
-                    <select
-                      class="form-select modern-input"
-                      id="ciudadDestino"
-                      v-model="formulario.ciudadDestino"
-                      required
-                    >
-                      <option value="">Seleccione una ciudad</option>
-                      <option v-for="ciudad in ciudadesColombia" :key="ciudad" :value="ciudad">
-                        {{ ciudad }}
-                      </option>
-                    </select>
-                    <div class="input-focus-border"></div>
+                    <div class="searchable-select">
+                      <input
+                        type="text"
+                        class="form-control modern-input"
+                        id="ciudadDestino"
+                        v-model="busquedaDestino"
+                        @input="filtrarCiudadesDestino"
+                        @focus="mostrarOpcionesDestino = true"
+                        @blur="ocultarOpcionesDestino"
+                        :placeholder="formulario.ciudadDestino || 'Buscar ciudad de destino...'"
+                        required
+                      >
+                      <div class="input-focus-border"></div>
+                      <div v-if="mostrarOpcionesDestino && ciudadesFiltradasDestino.length > 0" class="dropdown-options">
+                        <div 
+                          v-for="ciudad in ciudadesFiltradasDestino" 
+                          :key="ciudad"
+                          class="dropdown-option"
+                          @mousedown="seleccionarCiudadDestino(ciudad)"
+                        >
+                          {{ ciudad }}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -327,6 +351,14 @@ export default {
         conductor: ''
       },
       guardando: false,
+      // Variables para select con búsqueda de origen
+      busquedaOrigen: '',
+      mostrarOpcionesOrigen: false,
+      ciudadesFiltradasOrigen: [],
+      // Variables para select con búsqueda de destino
+      busquedaDestino: '',
+      mostrarOpcionesDestino: false,
+      ciudadesFiltradasDestino: [],
       ciudadesColombia: [
         'Bogotá D.C.',
         'Medellín',
@@ -428,6 +460,9 @@ export default {
   mounted() {
     this.generarCodigo()
     this.establecerFechaActual()
+    // Inicializar listas filtradas
+    this.ciudadesFiltradasOrigen = this.ciudadesColombia.slice(0, 10)
+    this.ciudadesFiltradasDestino = this.ciudadesColombia.slice(0, 10)
   },
   methods: {
     generarCodigo() {
@@ -445,6 +480,46 @@ export default {
       const hoy = new Date()
       const fechaFormateada = hoy.toISOString().split('T')[0]
       this.formulario.fecha = fechaFormateada
+    },
+    // Métodos para select con búsqueda de origen
+    filtrarCiudadesOrigen() {
+      if (this.busquedaOrigen.length === 0) {
+        this.ciudadesFiltradasOrigen = this.ciudadesColombia.slice(0, 10)
+      } else {
+        this.ciudadesFiltradasOrigen = this.ciudadesColombia.filter(ciudad =>
+          ciudad.toLowerCase().includes(this.busquedaOrigen.toLowerCase())
+        ).slice(0, 10)
+      }
+    },
+    seleccionarCiudadOrigen(ciudad) {
+      this.formulario.ciudadOrigen = ciudad
+      this.busquedaOrigen = ''
+      this.mostrarOpcionesOrigen = false
+    },
+    ocultarOpcionesOrigen() {
+      setTimeout(() => {
+        this.mostrarOpcionesOrigen = false
+      }, 200)
+    },
+    // Métodos para select con búsqueda de destino
+    filtrarCiudadesDestino() {
+      if (this.busquedaDestino.length === 0) {
+        this.ciudadesFiltradasDestino = this.ciudadesColombia.slice(0, 10)
+      } else {
+        this.ciudadesFiltradasDestino = this.ciudadesColombia.filter(ciudad =>
+          ciudad.toLowerCase().includes(this.busquedaDestino.toLowerCase())
+        ).slice(0, 10)
+      }
+    },
+    seleccionarCiudadDestino(ciudad) {
+      this.formulario.ciudadDestino = ciudad
+      this.busquedaDestino = ''
+      this.mostrarOpcionesDestino = false
+    },
+    ocultarOpcionesDestino() {
+      setTimeout(() => {
+        this.mostrarOpcionesDestino = false
+      }, 200)
     },
     guardarManifiesto() {
       this.guardando = true
@@ -492,6 +567,11 @@ export default {
         claseVehiculo: '',
         conductor: ''
       }
+      // Limpiar búsquedas
+      this.busquedaOrigen = ''
+      this.busquedaDestino = ''
+      this.mostrarOpcionesOrigen = false
+      this.mostrarOpcionesDestino = false
       // Generar nuevo código y establecer fecha actual
       this.generarCodigo()
       this.establecerFechaActual()
@@ -641,6 +721,44 @@ export default {
   display: flex;
   align-items: center;
   gap: 0.25rem;
+}
+
+/* Select con búsqueda */
+.searchable-select {
+  position: relative;
+}
+
+.dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e1e5e9;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.dropdown-option {
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #f8f9fa;
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+.dropdown-option:hover {
+  background: rgba(42, 82, 152, 0.08);
+  color: #2a5298;
+}
+
+.dropdown-option:last-child {
+  border-bottom: none;
 }
 
 .form-label {
