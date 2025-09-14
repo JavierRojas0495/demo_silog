@@ -411,7 +411,7 @@ export default {
 /* Header del formulario */
 .form-header {
   position: relative;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
   border-radius: 20px;
   padding: 2rem;
   margin-bottom: 2rem;
@@ -495,7 +495,7 @@ export default {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+  background: linear-gradient(90deg, #1e3c72, #2a5298, #1e3c72);
   border-radius: 20px 20px 0 0;
 }
 
@@ -518,7 +518,7 @@ export default {
 .label-icon {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #2a5298, #1e3c72);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -549,7 +549,7 @@ export default {
 }
 
 .modern-input:focus {
-  border-color: #667eea;
+  border-color: #2a5298;
   background: white;
   box-shadow: 
     0 0 0 0.2rem rgba(102, 126, 234, 0.25),
@@ -568,7 +568,7 @@ export default {
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #667eea, #764ba2);
+  background: linear-gradient(90deg, #2a5298, #1e3c72);
   border-radius: 0 0 12px 12px;
   opacity: 0;
   transform: scaleX(0);
@@ -590,7 +590,7 @@ export default {
 
 .btn-save {
   position: relative;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
   border: none;
   border-radius: 15px;
   padding: 1rem 3rem;
@@ -660,8 +660,8 @@ export default {
   box-shadow: 
     0 8px 25px rgba(0, 0, 0, 0.08),
     0 1px 3px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(102, 126, 234, 0.1);
-  border-left: 4px solid #667eea;
+  border: 1px solid rgba(42, 82, 152, 0.1);
+  border-left: 4px solid #2a5298;
 }
 
 .info-header {
@@ -673,7 +673,7 @@ export default {
 .info-icon {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #2a5298, #1e3c72);
   border-radius: 12px;
   display: flex;
   align-items: center;

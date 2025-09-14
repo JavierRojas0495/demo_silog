@@ -426,7 +426,7 @@ export default {
 <style scoped>
 /* Card de bienvenida */
 .welcome-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
   color: white;
   border-radius: 16px;
   padding: 1.5rem 1.5rem;
