@@ -124,44 +124,6 @@
 
       <div class="sidebar-divider"></div>
 
-      <div class="sidebar-section">
-        <div class="sidebar-section-header">
-          <h6 class="sidebar-title">
-            <i class="fas fa-users me-2"></i>
-            Gestión
-          </h6>
-        </div>
-        
-        <ul class="nav nav-pills flex-column">
-          <li class="nav-item mb-2">
-            <a class="nav-link d-flex align-items-center" href="#" @click="showComingSoon">
-              <div class="nav-icon">
-                <i class="fas fa-user-tie"></i>
-              </div>
-              <span class="nav-text">Clientes</span>
-              <div class="nav-badge">Pronto</div>
-            </a>
-          </li>
-          <li class="nav-item mb-2">
-            <a class="nav-link d-flex align-items-center" href="#" @click="showComingSoon">
-              <div class="nav-icon">
-                <i class="fas fa-chart-line"></i>
-              </div>
-              <span class="nav-text">Reportes</span>
-              <div class="nav-badge">Pronto</div>
-            </a>
-          </li>
-          <li class="nav-item mb-2">
-            <a class="nav-link d-flex align-items-center" href="#" @click="showComingSoon">
-              <div class="nav-icon">
-                <i class="fas fa-cogs"></i>
-              </div>
-              <span class="nav-text">Configuración</span>
-              <div class="nav-badge">Pronto</div>
-            </a>
-          </li>
-        </ul>
-      </div>
     </div>
   </div>
 </template>

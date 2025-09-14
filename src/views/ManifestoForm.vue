@@ -23,269 +23,440 @@
       <div class="col-12">
         <div class="form-card">
           <form @submit.prevent="guardarManifiesto" class="manifesto-form">
-            <div class="row">
-              <!-- Primera columna -->
-              <div class="col-md-6">
-                <div class="form-group mb-4">
-                  <label for="codigo" class="form-label">
-                    <div class="label-icon">
-                      <i class="fas fa-barcode"></i>
+            <!-- Información General -->
+            <div class="form-section">
+              <div class="section-header">
+                <div class="section-icon">
+                  <i class="fas fa-info-circle"></i>
+                </div>
+                <h4 class="section-title">Información General</h4>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group mb-4">
+                    <label for="codigo" class="form-label">
+                      <div class="label-icon">
+                        <i class="fas fa-barcode"></i>
+                      </div>
+                      <span class="label-text">Código</span>
+                    </label>
+                    <div class="input-wrapper">
+                      <input
+                        type="text"
+                        class="form-control modern-input"
+                        id="codigo"
+                        v-model="formulario.codigo"
+                        placeholder="Código generado automáticamente"
+                        readonly
+                      >
+                      <div class="input-focus-border"></div>
+                      <small class="form-text text-muted">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Código generado automáticamente
+                      </small>
                     </div>
-                    <span class="label-text">Código</span>
-                  </label>
-                  <div class="input-wrapper">
-                    <input
-                      type="text"
-                      class="form-control modern-input"
-                      id="codigo"
-                      v-model="formulario.codigo"
-                      placeholder="Código generado automáticamente"
-                      readonly
-                    >
-                    <div class="input-focus-border"></div>
-                    <small class="form-text text-muted">
-                      <i class="fas fa-info-circle me-1"></i>
-                      Código generado automáticamente
-                    </small>
                   </div>
                 </div>
-
-                <div class="form-group mb-4">
-                  <label for="muc" class="form-label">
-                    <div class="label-icon">
-                      <i class="fas fa-id-card"></i>
+                <div class="col-md-4">
+                  <div class="form-group mb-4">
+                    <label for="fecha" class="form-label">
+                      <div class="label-icon">
+                        <i class="fas fa-calendar"></i>
+                      </div>
+                      <span class="label-text">Fecha Actual</span>
+                    </label>
+                    <div class="input-wrapper">
+                      <input
+                        type="date"
+                        class="form-control modern-input"
+                        id="fecha"
+                        v-model="formulario.fecha"
+                        readonly
+                      >
+                      <div class="input-focus-border"></div>
+                      <small class="form-text text-muted">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Fecha actual del sistema
+                      </small>
                     </div>
-                    <span class="label-text">MUC</span>
-                  </label>
-                  <div class="input-wrapper">
-                    <input
-                      type="text"
-                      class="form-control modern-input"
-                      id="muc"
-                      v-model="formulario.muc"
-                      placeholder="Ingrese el MUC"
-                      required
-                    >
-                    <div class="input-focus-border"></div>
                   </div>
                 </div>
-
-                <div class="form-group mb-4">
-                  <label for="fecha" class="form-label">
-                    <div class="label-icon">
-                      <i class="fas fa-calendar"></i>
+                <div class="col-md-4">
+                  <div class="form-group mb-4">
+                    <label for="tipoManifiesto" class="form-label">
+                      <div class="label-icon">
+                        <i class="fas fa-list"></i>
+                      </div>
+                      <span class="label-text">Tipo Manifiesto RNDC</span>
+                    </label>
+                    <div class="input-wrapper">
+                      <select
+                        class="form-select modern-input"
+                        id="tipoManifiesto"
+                        v-model="formulario.tipoManifiesto"
+                        required
+                      >
+                        <option value="">Seleccione un tipo</option>
+                        <option value="Carga General">Carga General</option>
+                        <option value="Carga Peligrosa">Carga Peligrosa</option>
+                        <option value="Carga Refrigerada">Carga Refrigerada</option>
+                        <option value="Carga Frágil">Carga Frágil</option>
+                        <option value="Carga Sobredimensionada">Carga Sobredimensionada</option>
+                        <option value="Carga Especial">Carga Especial</option>
+                      </select>
+                      <div class="input-focus-border"></div>
                     </div>
-                    <span class="label-text">Fecha</span>
-                  </label>
-                  <div class="input-wrapper">
-                    <input
-                      type="date"
-                      class="form-control modern-input"
-                      id="fecha"
-                      v-model="formulario.fecha"
-                      required
-                    >
-                    <div class="input-focus-border"></div>
-                  </div>
-                </div>
-
-                <div class="form-group mb-4">
-                  <label for="tipoManifiesto" class="form-label">
-                    <div class="label-icon">
-                      <i class="fas fa-list"></i>
-                    </div>
-                    <span class="label-text">Tipo Manifiesto RNDC</span>
-                  </label>
-                  <div class="input-wrapper">
-                    <select
-                      class="form-select modern-input"
-                      id="tipoManifiesto"
-                      v-model="formulario.tipoManifiesto"
-                      required
-                    >
-                      <option value="">Seleccione un tipo</option>
-                      <option value="Carga General">Carga General</option>
-                      <option value="Carga Peligrosa">Carga Peligrosa</option>
-                      <option value="Carga Refrigerada">Carga Refrigerada</option>
-                      <option value="Carga Frágil">Carga Frágil</option>
-                      <option value="Carga Sobredimensionada">Carga Sobredimensionada</option>
-                      <option value="Carga Especial">Carga Especial</option>
-                    </select>
-                    <div class="input-focus-border"></div>
-                  </div>
-                </div>
-
-                <div class="form-group mb-4">
-                  <label for="viajesPorDia" class="form-label">
-                    <div class="label-icon">
-                      <i class="fas fa-route"></i>
-                    </div>
-                    <span class="label-text">Viajes por día</span>
-                  </label>
-                  <div class="input-wrapper">
-                    <input
-                      type="number"
-                      class="form-control modern-input"
-                      id="viajesPorDia"
-                      v-model.number="formulario.viajesPorDia"
-                      placeholder="Número de viajes por día"
-                      min="1"
-                      required
-                    >
-                    <div class="input-focus-border"></div>
-                  </div>
-                </div>
-
-                <div class="form-group mb-4">
-                  <label for="ruta" class="form-label">
-                    <div class="label-icon">
-                      <i class="fas fa-map-marked-alt"></i>
-                    </div>
-                    <span class="label-text">Ruta</span>
-                  </label>
-                  <div class="input-wrapper">
-                    <input
-                      type="text"
-                      class="form-control modern-input"
-                      id="ruta"
-                      v-model="formulario.ruta"
-                      placeholder="Ingrese la ruta"
-                      required
-                    >
-                    <div class="input-focus-border"></div>
                   </div>
                 </div>
               </div>
-
-              <!-- Segunda columna -->
-              <div class="col-md-6">
-                <div class="form-group mb-4">
-                  <label for="ciudadOrigen" class="form-label">
-                    <div class="label-icon">
-                      <i class="fas fa-map-marker-alt"></i>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group mb-4">
+                    <label for="detalles" class="form-label">
+                      <div class="label-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                      </div>
+                      <span class="label-text">Detalles del Manifiesto</span>
+                    </label>
+                    <div class="input-wrapper">
+                      <textarea
+                        class="form-control modern-input"
+                        id="detalles"
+                        v-model="formulario.detalles"
+                        placeholder="Ingrese los detalles del manifiesto"
+                        rows="3"
+                        required
+                      ></textarea>
+                      <div class="input-focus-border"></div>
                     </div>
-                    <span class="label-text">Ciudad Origen</span>
-                  </label>
-                  <div class="input-wrapper">
-                    <div class="searchable-select">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group mb-4">
+                    <label for="creadoPor" class="form-label">
+                      <div class="label-icon">
+                        <i class="fas fa-user-plus"></i>
+                      </div>
+                      <span class="label-text">Creado por</span>
+                    </label>
+                    <div class="input-wrapper">
                       <input
                         type="text"
                         class="form-control modern-input"
-                        id="ciudadOrigen"
-                        v-model="busquedaOrigen"
-                        @input="filtrarCiudadesOrigen"
-                        @focus="mostrarOpcionesOrigen = true"
-                        @blur="ocultarOpcionesOrigen"
-                        :placeholder="formulario.ciudadOrigen || 'Buscar ciudad de origen...'"
-                        required
+                        id="creadoPor"
+                        v-model="formulario.creadoPor"
+                        placeholder="Nombre del usuario autenticado"
+                        readonly
                       >
                       <div class="input-focus-border"></div>
-                      <div v-if="mostrarOpcionesOrigen && ciudadesFiltradasOrigen.length > 0" class="dropdown-options">
-                        <div 
-                          v-for="ciudad in ciudadesFiltradasOrigen" 
-                          :key="ciudad"
-                          class="dropdown-option"
-                          @mousedown="seleccionarCiudadOrigen(ciudad)"
+                      <small class="form-text text-muted">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Usuario autenticado automáticamente
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Información de Ruta -->
+            <div class="form-section">
+              <div class="section-header">
+                <div class="section-icon">
+                  <i class="fas fa-route"></i>
+                </div>
+                <h4 class="section-title">Información de Ruta</h4>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-4">
+                    <label for="ciudadOrigen" class="form-label">
+                      <div class="label-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                      </div>
+                      <span class="label-text">Ciudad Origen</span>
+                    </label>
+                    <div class="input-wrapper">
+                      <div class="searchable-select">
+                        <input
+                          type="text"
+                          class="form-control modern-input"
+                          id="ciudadOrigen"
+                          v-model="busquedaOrigen"
+                          @input="filtrarCiudadesOrigen"
+                          @focus="mostrarOpcionesOrigen = true"
+                          @blur="ocultarOpcionesOrigen"
+                          :placeholder="formulario.ciudadOrigen || 'Buscar ciudad de origen...'"
+                          :value="formulario.ciudadOrigen"
+                          required
                         >
-                          {{ ciudad }}
+                        <div class="input-focus-border"></div>
+                        <div v-if="mostrarOpcionesOrigen && ciudadesFiltradasOrigen.length > 0" class="dropdown-options">
+                          <div 
+                            v-for="ciudad in ciudadesFiltradasOrigen" 
+                            :key="ciudad"
+                            class="dropdown-option"
+                            @mousedown="seleccionarCiudadOrigen(ciudad)"
+                          >
+                            {{ ciudad }}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="form-group mb-4">
-                  <label for="ciudadDestino" class="form-label">
-                    <div class="label-icon">
-                      <i class="fas fa-flag-checkered"></i>
-                    </div>
-                    <span class="label-text">Ciudad Destino</span>
-                  </label>
-                  <div class="input-wrapper">
-                    <div class="searchable-select">
-                      <input
-                        type="text"
-                        class="form-control modern-input"
-                        id="ciudadDestino"
-                        v-model="busquedaDestino"
-                        @input="filtrarCiudadesDestino"
-                        @focus="mostrarOpcionesDestino = true"
-                        @blur="ocultarOpcionesDestino"
-                        :placeholder="formulario.ciudadDestino || 'Buscar ciudad de destino...'"
-                        required
-                      >
-                      <div class="input-focus-border"></div>
-                      <div v-if="mostrarOpcionesDestino && ciudadesFiltradasDestino.length > 0" class="dropdown-options">
-                        <div 
-                          v-for="ciudad in ciudadesFiltradasDestino" 
-                          :key="ciudad"
-                          class="dropdown-option"
-                          @mousedown="seleccionarCiudadDestino(ciudad)"
+                <div class="col-md-6">
+                  <div class="form-group mb-4">
+                    <label for="ciudadDestino" class="form-label">
+                      <div class="label-icon">
+                        <i class="fas fa-flag-checkered"></i>
+                      </div>
+                      <span class="label-text">Ciudad Destino</span>
+                    </label>
+                    <div class="input-wrapper">
+                      <div class="searchable-select">
+                        <input
+                          type="text"
+                          class="form-control modern-input"
+                          id="ciudadDestino"
+                          v-model="busquedaDestino"
+                          @input="filtrarCiudadesDestino"
+                          @focus="mostrarOpcionesDestino = true"
+                          @blur="ocultarOpcionesDestino"
+                          :placeholder="formulario.ciudadDestino || 'Buscar ciudad de destino...'"
+                          :value="formulario.ciudadDestino"
+                          required
                         >
-                          {{ ciudad }}
+                        <div class="input-focus-border"></div>
+                        <div v-if="mostrarOpcionesDestino && ciudadesFiltradasDestino.length > 0" class="dropdown-options">
+                          <div 
+                            v-for="ciudad in ciudadesFiltradasDestino" 
+                            :key="ciudad"
+                            class="dropdown-option"
+                            @mousedown="seleccionarCiudadDestino(ciudad)"
+                          >
+                            {{ ciudad }}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-
-                <div class="form-group mb-4">
-                  <label for="vehiculo" class="form-label">
-                    <div class="label-icon">
-                      <i class="fas fa-truck"></i>
+                <div class="col-md-6">
+                  <div class="form-group mb-4">
+                    <label for="ruta" class="form-label">
+                      <div class="label-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                      </div>
+                      <span class="label-text">Ruta</span>
+                    </label>
+                    <div class="input-wrapper">
+                      <input
+                        type="text"
+                        class="form-control modern-input"
+                        id="ruta"
+                        v-model="formulario.ruta"
+                        placeholder="Ruta generada automáticamente"
+                        readonly
+                      >
+                      <div class="input-focus-border"></div>
+                      <small class="form-text text-muted">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Ruta generada automáticamente según ciudades seleccionadas
+                      </small>
                     </div>
-                    <span class="label-text">Vehículo</span>
-                  </label>
-                  <div class="input-wrapper">
-                    <input
-                      type="text"
-                      class="form-control modern-input"
-                      id="vehiculo"
-                      v-model="formulario.vehiculo"
-                      placeholder="Placa o identificación del vehículo"
-                      required
-                    >
-                    <div class="input-focus-border"></div>
                   </div>
                 </div>
-
-                <div class="form-group mb-4">
-                  <label for="claseVehiculo" class="form-label">
-                    <div class="label-icon">
-                      <i class="fas fa-truck-loading"></i>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-4">
+                    <label for="viajesPorDia" class="form-label">
+                      <div class="label-icon">
+                        <i class="fas fa-route"></i>
+                      </div>
+                      <span class="label-text">Viajes por día</span>
+                    </label>
+                    <div class="input-wrapper">
+                      <input
+                        type="number"
+                        class="form-control modern-input"
+                        id="viajesPorDia"
+                        v-model.number="formulario.viajesPorDia"
+                        placeholder="Número de viajes por día"
+                        min="1"
+                        required
+                      >
+                      <div class="input-focus-border"></div>
                     </div>
-                    <span class="label-text">Clase Vehículo</span>
-                  </label>
-                  <div class="input-wrapper">
-                    <input
-                      type="text"
-                      class="form-control modern-input"
-                      id="claseVehiculo"
-                      v-model="formulario.claseVehiculo"
-                      placeholder="Clase del vehículo"
-                      required
-                    >
-                    <div class="input-focus-border"></div>
                   </div>
                 </div>
+              </div>
+            </div>
 
-                <div class="form-group mb-4">
-                  <label for="conductor" class="form-label">
-                    <div class="label-icon">
-                      <i class="fas fa-user-tie"></i>
+            <!-- Información de Tiempos -->
+            <div class="form-section">
+              <div class="section-header">
+                <div class="section-icon">
+                  <i class="fas fa-clock"></i>
+                </div>
+                <h4 class="section-title">Información de Tiempos</h4>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group mb-4">
+                    <label for="horaCargue" class="form-label">
+                      <div class="label-icon">
+                        <i class="fas fa-clock"></i>
+                      </div>
+                      <span class="label-text">Hora de Cargue</span>
+                    </label>
+                    <div class="input-wrapper">
+                      <input
+                        type="time"
+                        class="form-control modern-input"
+                        id="horaCargue"
+                        v-model="formulario.horaCargue"
+                        required
+                      >
+                      <div class="input-focus-border"></div>
                     </div>
-                    <span class="label-text">Conductor</span>
-                  </label>
-                  <div class="input-wrapper">
-                    <input
-                      type="text"
-                      class="form-control modern-input"
-                      id="conductor"
-                      v-model="formulario.conductor"
-                      placeholder="Nombre del conductor"
-                      required
-                    >
-                    <div class="input-focus-border"></div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group mb-4">
+                    <label for="horaDescargue" class="form-label">
+                      <div class="label-icon">
+                        <i class="fas fa-clock"></i>
+                      </div>
+                      <span class="label-text">Hora de Descargue</span>
+                    </label>
+                    <div class="input-wrapper">
+                      <input
+                        type="time"
+                        class="form-control modern-input"
+                        id="horaDescargue"
+                        v-model="formulario.horaDescargue"
+                        required
+                      >
+                      <div class="input-focus-border"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group mb-4">
+                    <label for="fechaEnvio" class="form-label">
+                      <div class="label-icon">
+                        <i class="fas fa-paper-plane"></i>
+                      </div>
+                      <span class="label-text">Fecha de Envío</span>
+                    </label>
+                    <div class="input-wrapper">
+                      <input
+                        type="date"
+                        class="form-control modern-input"
+                        id="fechaEnvio"
+                        v-model="formulario.fechaEnvio"
+                        required
+                      >
+                      <div class="input-focus-border"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group mb-4">
+                    <label for="fechaEntrega" class="form-label">
+                      <div class="label-icon">
+                        <i class="fas fa-truck"></i>
+                      </div>
+                      <span class="label-text">Fecha de Entrega</span>
+                    </label>
+                    <div class="input-wrapper">
+                      <input
+                        type="date"
+                        class="form-control modern-input"
+                        id="fechaEntrega"
+                        v-model="formulario.fechaEntrega"
+                        required
+                      >
+                      <div class="input-focus-border"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Información del Vehículo -->
+            <div class="form-section">
+              <div class="section-header">
+                <div class="section-icon">
+                  <i class="fas fa-truck"></i>
+                </div>
+                <h4 class="section-title">Información del Vehículo</h4>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group mb-4">
+                    <label for="vehiculo" class="form-label">
+                      <div class="label-icon">
+                        <i class="fas fa-truck"></i>
+                      </div>
+                      <span class="label-text">Vehículo</span>
+                    </label>
+                    <div class="input-wrapper">
+                      <input
+                        type="text"
+                        class="form-control modern-input"
+                        id="vehiculo"
+                        v-model="formulario.vehiculo"
+                        placeholder="Placa del vehículo"
+                        required
+                      >
+                      <div class="input-focus-border"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group mb-4">
+                    <label for="claseVehiculo" class="form-label">
+                      <div class="label-icon">
+                        <i class="fas fa-truck-loading"></i>
+                      </div>
+                      <span class="label-text">Clase de Vehículo</span>
+                    </label>
+                    <div class="input-wrapper">
+                      <input
+                        type="text"
+                        class="form-control modern-input"
+                        id="claseVehiculo"
+                        v-model="formulario.claseVehiculo"
+                        placeholder="Tipo de vehículo"
+                        required
+                      >
+                      <div class="input-focus-border"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group mb-4">
+                    <label for="conductor" class="form-label">
+                      <div class="label-icon">
+                        <i class="fas fa-user"></i>
+                      </div>
+                      <span class="label-text">Conductor</span>
+                    </label>
+                    <div class="input-wrapper">
+                      <input
+                        type="text"
+                        class="form-control modern-input"
+                        id="conductor"
+                        v-model="formulario.conductor"
+                        placeholder="Nombre del conductor"
+                        required
+                      >
+                      <div class="input-focus-border"></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -333,22 +504,29 @@
 </template>
 
 <script>
+import { getUser } from '../utils/auth.js'
+
 export default {
   name: 'ManifestoForm',
   data() {
     return {
       formulario: {
         codigo: '',
-        muc: '',
+        detalles: '',
         fecha: '',
         tipoManifiesto: '',
+        horaCargue: '',
+        horaDescargue: '',
+        fechaEnvio: '',
+        fechaEntrega: '',
         viajesPorDia: null,
         ruta: '',
         ciudadOrigen: '',
         ciudadDestino: '',
         vehiculo: '',
         claseVehiculo: '',
-        conductor: ''
+        conductor: '',
+        creadoPor: ''
       },
       guardando: false,
       // Variables para select con búsqueda de origen
@@ -460,6 +638,8 @@ export default {
   mounted() {
     this.generarCodigo()
     this.establecerFechaActual()
+    this.generarRuta()
+    this.establecerUsuarioActual()
     // Inicializar listas filtradas
     this.ciudadesFiltradasOrigen = this.ciudadesColombia.slice(0, 10)
     this.ciudadesFiltradasDestino = this.ciudadesColombia.slice(0, 10)
@@ -481,6 +661,27 @@ export default {
       const fechaFormateada = hoy.toISOString().split('T')[0]
       this.formulario.fecha = fechaFormateada
     },
+    establecerUsuarioActual() {
+      // Establecer el nombre del usuario autenticado
+      const usuario = getUser()
+      if (usuario) {
+        this.formulario.creadoPor = usuario.nombre
+      } else {
+        this.formulario.creadoPor = 'Usuario no identificado'
+      }
+    },
+    generarRuta() {
+      // Generar ruta automáticamente basada en las ciudades seleccionadas
+      if (this.formulario.ciudadOrigen && this.formulario.ciudadDestino) {
+        this.formulario.ruta = `${this.formulario.ciudadOrigen} → ${this.formulario.ciudadDestino}`
+      } else if (this.formulario.ciudadOrigen) {
+        this.formulario.ruta = `${this.formulario.ciudadOrigen} → [Seleccione destino]`
+      } else if (this.formulario.ciudadDestino) {
+        this.formulario.ruta = `[Seleccione origen] → ${this.formulario.ciudadDestino}`
+      } else {
+        this.formulario.ruta = '[Seleccione origen y destino]'
+      }
+    },
     // Métodos para select con búsqueda de origen
     filtrarCiudadesOrigen() {
       if (this.busquedaOrigen.length === 0) {
@@ -495,6 +696,7 @@ export default {
       this.formulario.ciudadOrigen = ciudad
       this.busquedaOrigen = ''
       this.mostrarOpcionesOrigen = false
+      this.generarRuta()
     },
     ocultarOpcionesOrigen() {
       setTimeout(() => {
@@ -515,13 +717,72 @@ export default {
       this.formulario.ciudadDestino = ciudad
       this.busquedaDestino = ''
       this.mostrarOpcionesDestino = false
+      this.generarRuta()
     },
     ocultarOpcionesDestino() {
       setTimeout(() => {
         this.mostrarOpcionesDestino = false
       }, 200)
     },
+    validarFormulario() {
+      console.log('Validando formulario:', this.formulario)
+      
+      const camposRequeridos = [
+        { campo: 'detalles', nombre: 'Detalles' },
+        { campo: 'tipoManifiesto', nombre: 'Tipo Manifiesto' },
+        { campo: 'ciudadOrigen', nombre: 'Ciudad Origen' },
+        { campo: 'ciudadDestino', nombre: 'Ciudad Destino' },
+        { campo: 'horaCargue', nombre: 'Hora de Cargue' },
+        { campo: 'horaDescargue', nombre: 'Hora de Descargue' },
+        { campo: 'fechaEnvio', nombre: 'Fecha de Envío' },
+        { campo: 'fechaEntrega', nombre: 'Fecha de Entrega' },
+        { campo: 'vehiculo', nombre: 'Vehículo' },
+        { campo: 'claseVehiculo', nombre: 'Clase de Vehículo' },
+        { campo: 'conductor', nombre: 'Conductor' },
+        { campo: 'viajesPorDia', nombre: 'Viajes por día' },
+        { campo: 'creadoPor', nombre: 'Creado por' }
+      ]
+      
+      for (const { campo, nombre } of camposRequeridos) {
+        console.log(`Validando ${campo}:`, this.formulario[campo])
+        if (!this.formulario[campo] || this.formulario[campo].toString().trim() === '') {
+          this.mostrarMensaje(`El campo "${nombre}" es requerido`, 'error')
+          return false
+        }
+      }
+      
+      return true
+    },
+    mostrarMensaje(mensaje, tipo = 'info') {
+      // Crear elemento de mensaje
+      const mensajeElement = document.createElement('div')
+      mensajeElement.className = `alert alert-${tipo === 'error' ? 'danger' : tipo === 'success' ? 'success' : 'info'} alert-dismissible fade show`
+      mensajeElement.style.position = 'fixed'
+      mensajeElement.style.top = '20px'
+      mensajeElement.style.right = '20px'
+      mensajeElement.style.zIndex = '9999'
+      mensajeElement.style.minWidth = '300px'
+      mensajeElement.innerHTML = `
+        ${mensaje}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      `
+      
+      // Agregar al DOM
+      document.body.appendChild(mensajeElement)
+      
+      // Auto-remover después de 5 segundos
+      setTimeout(() => {
+        if (mensajeElement.parentNode) {
+          mensajeElement.parentNode.removeChild(mensajeElement)
+        }
+      }, 5000)
+    },
     guardarManifiesto() {
+      // Validar campos requeridos
+      if (!this.validarFormulario()) {
+        return
+      }
+      
       this.guardando = true
       
       // Simular delay de guardado
@@ -556,16 +817,21 @@ export default {
     limpiarFormulario() {
       this.formulario = {
         codigo: '',
-        muc: '',
+        detalles: '',
         fecha: '',
         tipoManifiesto: '',
+        horaCargue: '',
+        horaDescargue: '',
+        fechaEnvio: '',
+        fechaEntrega: '',
         viajesPorDia: null,
         ruta: '',
         ciudadOrigen: '',
         ciudadDestino: '',
         vehiculo: '',
         claseVehiculo: '',
-        conductor: ''
+        conductor: '',
+        creadoPor: ''
       }
       // Limpiar búsquedas
       this.busquedaOrigen = ''
@@ -575,6 +841,8 @@ export default {
       // Generar nuevo código y establecer fecha actual
       this.generarCodigo()
       this.establecerFechaActual()
+      this.establecerUsuarioActual()
+      this.generarRuta()
     },
     
     formatearFecha(fecha) {
@@ -759,6 +1027,51 @@ export default {
 
 .dropdown-option:last-child {
   border-bottom: none;
+}
+
+/* Estilos para textarea */
+textarea.modern-input {
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+/* Estilos para secciones del formulario */
+.form-section {
+  margin-bottom: 2.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid rgba(42, 82, 152, 0.1);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(42, 82, 152, 0.1);
+}
+
+.section-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #2a5298, #1e3c72);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.section-title {
+  color: #2a5298;
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin: 0;
 }
 
 .form-label {

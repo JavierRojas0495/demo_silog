@@ -27,7 +27,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="Buscar por código, ruta, conductor..."
+                    placeholder="Buscar por código, ruta, conductor, vehículo, tipo..."
                     v-model="filtroBusqueda"
                     @input="filtrarManifiestos"
                   >
@@ -87,21 +87,23 @@
               <thead>
                 <tr>
                   <th>Código</th>
-                  <th>MUC</th>
                   <th>Fecha</th>
                   <th>Tipo Manifiesto</th>
-                  <th>Viajes/Día</th>
                   <th>Ruta</th>
-                  <th>Ciudad Origen</th>
-                  <th>Ciudad Destino</th>
                   <th>Vehículo</th>
+                  <th>Clase Vehículo</th>
                   <th>Conductor</th>
+                  <th>Creado por</th>
+                  <th>Hora Cargue</th>
+                  <th>Hora Descargue</th>
+                  <th>Fecha Envío</th>
+                  <th>Fecha Entrega</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-if="manifiestosFiltrados.length === 0">
-                  <td colspan="11" class="text-center text-muted py-5">
+                  <td colspan="13" class="text-center text-muted py-5">
                     <div class="empty-state">
                       <i class="fas fa-inbox fa-3x mb-3 text-muted"></i>
                       <h5 class="text-muted">No hay manifiestos registrados</h5>
@@ -113,19 +115,27 @@
                   <td>
                     <span class="badge bg-secondary">{{ manifiesto.codigo }}</span>
                   </td>
-                  <td>{{ manifiesto.muc }}</td>
                   <td>{{ formatearFecha(manifiesto.fecha) }}</td>
                   <td>
                     <span class="badge bg-info">{{ manifiesto.tipoManifiesto }}</span>
                   </td>
                   <td>
-                    <span class="badge bg-warning">{{ manifiesto.viajesPorDia }}</span>
+                    <span class="text-primary fw-bold">{{ manifiesto.ruta }}</span>
                   </td>
-                  <td>{{ manifiesto.ruta }}</td>
-                  <td>{{ manifiesto.ciudadOrigen }}</td>
-                  <td>{{ manifiesto.ciudadDestino }}</td>
                   <td>{{ manifiesto.vehiculo }}</td>
+                  <td>{{ manifiesto.claseVehiculo }}</td>
                   <td>{{ manifiesto.conductor }}</td>
+                  <td>
+                    <span class="badge bg-primary">{{ manifiesto.creadoPor || '-' }}</span>
+                  </td>
+                  <td>
+                    <span class="badge bg-success">{{ manifiesto.horaCargue || '-' }}</span>
+                  </td>
+                  <td>
+                    <span class="badge bg-warning">{{ manifiesto.horaDescargue || '-' }}</span>
+                  </td>
+                  <td>{{ formatearFecha(manifiesto.fechaEnvio) }}</td>
+                  <td>{{ formatearFecha(manifiesto.fechaEntrega) }}</td>
                   <td>
                     <div class="btn-group" role="group">
                       <button
@@ -151,6 +161,128 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal de Detalles -->
+    <div class="modal fade" id="detalleModal" tabindex="-1" aria-labelledby="detalleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="detalleModalLabel">
+              <i class="fas fa-file-alt me-2"></i>
+              Detalle del Manifiesto
+            </h5>
+            <button type="button" class="btn-close" @click="cerrarModal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" v-if="manifiestoSeleccionado">
+            <div class="row">
+              <!-- Información General -->
+              <div class="col-md-6">
+                <div class="detail-section">
+                  <h6 class="detail-title">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Información General
+                  </h6>
+                  <div class="detail-item">
+                    <span class="detail-label">Código:</span>
+                    <span class="badge bg-secondary">{{ manifiestoSeleccionado.codigo }}</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Fecha:</span>
+                    <span>{{ formatearFecha(manifiestoSeleccionado.fecha) }}</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Tipo:</span>
+                    <span class="badge bg-info">{{ manifiestoSeleccionado.tipoManifiesto }}</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Creado por:</span>
+                    <span class="badge bg-primary">{{ manifiestoSeleccionado.creadoPor }}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Información de Ruta -->
+              <div class="col-md-6">
+                <div class="detail-section">
+                  <h6 class="detail-title">
+                    <i class="fas fa-route me-2"></i>
+                    Información de Ruta
+                  </h6>
+                  <div class="detail-item">
+                    <span class="detail-label">Ruta:</span>
+                    <span class="text-primary fw-bold">{{ manifiestoSeleccionado.ruta }}</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Vehículo:</span>
+                    <span>{{ manifiestoSeleccionado.vehiculo }}</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Clase Vehículo:</span>
+                    <span>{{ manifiestoSeleccionado.claseVehiculo }}</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Conductor:</span>
+                    <span>{{ manifiestoSeleccionado.conductor }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <!-- Información de Tiempos -->
+              <div class="col-md-6">
+                <div class="detail-section">
+                  <h6 class="detail-title">
+                    <i class="fas fa-clock me-2"></i>
+                    Información de Tiempos
+                  </h6>
+                  <div class="detail-item">
+                    <span class="detail-label">Hora Cargue:</span>
+                    <span class="badge bg-success">{{ manifiestoSeleccionado.horaCargue || 'No especificada' }}</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Hora Descargue:</span>
+                    <span class="badge bg-warning">{{ manifiestoSeleccionado.horaDescargue || 'No especificada' }}</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Fecha Envío:</span>
+                    <span>{{ formatearFecha(manifiestoSeleccionado.fechaEnvio) }}</span>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Fecha Entrega:</span>
+                    <span>{{ formatearFecha(manifiestoSeleccionado.fechaEntrega) }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Detalles Adicionales -->
+              <div class="col-md-6">
+                <div class="detail-section">
+                  <h6 class="detail-title">
+                    <i class="fas fa-clipboard-list me-2"></i>
+                    Detalles Adicionales
+                  </h6>
+                  <div class="detail-item">
+                    <span class="detail-label">Detalles:</span>
+                    <p class="detail-text">{{ manifiestoSeleccionado.detalles || 'Sin detalles adicionales' }}</p>
+                  </div>
+                  <div class="detail-item">
+                    <span class="detail-label">Fecha Creación:</span>
+                    <span class="text-muted">{{ new Date(manifiestoSeleccionado.fechaCreacion).toLocaleString('es-ES') }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" @click="cerrarModal">
+              <i class="fas fa-times me-1"></i>
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -161,7 +293,8 @@ export default {
     return {
       manifiestos: [],
       manifiestosFiltrados: [],
-      filtroBusqueda: ''
+      filtroBusqueda: '',
+      manifiestoSeleccionado: null
     }
   },
   mounted() {
@@ -186,9 +319,10 @@ export default {
         manifiesto.codigo.toLowerCase().includes(busqueda) ||
         manifiesto.ruta.toLowerCase().includes(busqueda) ||
         manifiesto.conductor.toLowerCase().includes(busqueda) ||
-        manifiesto.ciudadOrigen.toLowerCase().includes(busqueda) ||
-        manifiesto.ciudadDestino.toLowerCase().includes(busqueda) ||
-        manifiesto.vehiculo.toLowerCase().includes(busqueda)
+        manifiesto.vehiculo.toLowerCase().includes(busqueda) ||
+        manifiesto.claseVehiculo.toLowerCase().includes(busqueda) ||
+        manifiesto.tipoManifiesto.toLowerCase().includes(busqueda) ||
+        (manifiesto.detalles && manifiesto.detalles.toLowerCase().includes(busqueda))
       )
     },
     eliminarManifiesto(id) {
@@ -208,23 +342,50 @@ export default {
       }
     },
     verDetalle(manifiesto) {
-      const detalle = `
-Detalle del Manifiesto:
-
-Código: ${manifiesto.codigo}
-MUC: ${manifiesto.muc}
-Fecha: ${this.formatearFecha(manifiesto.fecha)}
-Tipo: ${manifiesto.tipoManifiesto}
-Viajes por día: ${manifiesto.viajesPorDia}
-Ruta: ${manifiesto.ruta}
-Ciudad Origen: ${manifiesto.ciudadOrigen}
-Ciudad Destino: ${manifiesto.ciudadDestino}
-Vehículo: ${manifiesto.vehiculo}
-Clase Vehículo: ${manifiesto.claseVehiculo}
-Conductor: ${manifiesto.conductor}
-Fecha de Creación: ${new Date(manifiesto.fechaCreacion).toLocaleString('es-ES')}
-      `
-      alert(detalle)
+      this.manifiestoSeleccionado = manifiesto
+      // Mostrar el modal usando Bootstrap o jQuery
+      const modalElement = document.getElementById('detalleModal')
+      if (window.bootstrap) {
+        const modal = new bootstrap.Modal(modalElement)
+        modal.show()
+      } else if (window.$ && window.$.fn.modal) {
+        $(modalElement).modal('show')
+      } else {
+        // Fallback: mostrar modal manualmente
+        modalElement.style.display = 'block'
+        modalElement.classList.add('show')
+        document.body.classList.add('modal-open')
+        
+        // Crear backdrop
+        const backdrop = document.createElement('div')
+        backdrop.className = 'modal-backdrop fade show'
+        backdrop.id = 'modalBackdrop'
+        document.body.appendChild(backdrop)
+        
+        // Cerrar modal al hacer clic en backdrop
+        backdrop.addEventListener('click', () => {
+          this.cerrarModal()
+        })
+        
+        // Cerrar modal con ESC
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            this.cerrarModal()
+          }
+        })
+      }
+    },
+    cerrarModal() {
+      const modalElement = document.getElementById('detalleModal')
+      const backdrop = document.getElementById('modalBackdrop')
+      
+      modalElement.style.display = 'none'
+      modalElement.classList.remove('show')
+      document.body.classList.remove('modal-open')
+      
+      if (backdrop) {
+        backdrop.remove()
+      }
     },
     exportarDatos() {
       if (this.manifiestos.length === 0) {
@@ -246,18 +407,21 @@ Fecha de Creación: ${new Date(manifiesto.fechaCreacion).toLocaleString('es-ES')
       this.mostrarMensaje('Datos exportados exitosamente', 'success')
     },
     generarCSV() {
-      const headers = ['Código', 'MUC', 'Fecha', 'Tipo', 'Viajes/Día', 'Ruta', 'Origen', 'Destino', 'Vehículo', 'Conductor']
+      const headers = ['Código', 'Fecha', 'Tipo', 'Ruta', 'Vehículo', 'Clase Vehículo', 'Conductor', 'Creado por', 'Hora Cargue', 'Hora Descargue', 'Fecha Envío', 'Fecha Entrega', 'Detalles']
       const rows = this.manifiestos.map(m => [
         m.codigo,
-        m.muc,
         this.formatearFecha(m.fecha),
         m.tipoManifiesto,
-        m.viajesPorDia,
         m.ruta,
-        m.ciudadOrigen,
-        m.ciudadDestino,
         m.vehiculo,
-        m.conductor
+        m.claseVehiculo,
+        m.conductor,
+        m.creadoPor || '',
+        m.horaCargue || '',
+        m.horaDescargue || '',
+        this.formatearFecha(m.fechaEnvio),
+        this.formatearFecha(m.fechaEntrega),
+        m.detalles || ''
       ])
       
       return [headers, ...rows].map(row => 
@@ -464,6 +628,119 @@ Fecha de Creación: ${new Date(manifiesto.fechaCreacion).toLocaleString('es-ES')
   .table th,
   .table td {
     padding: 0.4rem 0.2rem;
+  }
+}
+
+/* Estilos para el modal de detalles */
+.detail-section {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #e9ecef;
+}
+
+.detail-title {
+  color: #2a5298;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #2a5298;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: #495057;
+  min-width: 120px;
+}
+
+.detail-text {
+  margin: 0;
+  padding: 0.5rem;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  min-height: 60px;
+  white-space: pre-wrap;
+}
+
+.modal-content {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #2a5298, #1e3c72);
+  color: white;
+  border-radius: 16px 16px 0 0;
+  border-bottom: none;
+}
+
+.modal-title {
+  font-weight: 700;
+}
+
+.btn-close {
+  filter: invert(1);
+}
+
+.modal-footer {
+  border-top: 1px solid #e9ecef;
+  border-radius: 0 0 16px 16px;
+}
+
+/* Estilos adicionales para el modal */
+.modal {
+  z-index: 1055;
+}
+
+.modal.show {
+  display: block !important;
+}
+
+.modal-backdrop {
+  z-index: 1050;
+}
+
+.modal-open {
+  overflow: hidden;
+}
+
+/* Asegurar que el modal sea responsive */
+@media (max-width: 768px) {
+  .modal-dialog {
+    margin: 0.5rem;
+  }
+  
+  .detail-section {
+    padding: 1rem;
+  }
+  
+  .detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .detail-label {
+    min-width: auto;
+    font-weight: 700;
   }
 }
 </style>
