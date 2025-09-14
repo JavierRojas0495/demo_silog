@@ -39,10 +39,14 @@
                       class="form-control modern-input"
                       id="codigo"
                       v-model="formulario.codigo"
-                      placeholder="Ingrese el código del manifiesto"
-                      required
+                      placeholder="Código generado automáticamente"
+                      readonly
                     >
                     <div class="input-focus-border"></div>
+                    <small class="form-text text-muted">
+                      <i class="fas fa-info-circle me-1"></i>
+                      Código generado automáticamente
+                    </small>
                   </div>
                 </div>
 
@@ -163,14 +167,17 @@
                     <span class="label-text">Ciudad Origen</span>
                   </label>
                   <div class="input-wrapper">
-                    <input
-                      type="text"
-                      class="form-control modern-input"
+                    <select
+                      class="form-select modern-input"
                       id="ciudadOrigen"
                       v-model="formulario.ciudadOrigen"
-                      placeholder="Ciudad de origen"
                       required
                     >
+                      <option value="">Seleccione una ciudad</option>
+                      <option v-for="ciudad in ciudadesColombia" :key="ciudad" :value="ciudad">
+                        {{ ciudad }}
+                      </option>
+                    </select>
                     <div class="input-focus-border"></div>
                   </div>
                 </div>
@@ -183,14 +190,17 @@
                     <span class="label-text">Ciudad Destino</span>
                   </label>
                   <div class="input-wrapper">
-                    <input
-                      type="text"
-                      class="form-control modern-input"
+                    <select
+                      class="form-select modern-input"
                       id="ciudadDestino"
                       v-model="formulario.ciudadDestino"
-                      placeholder="Ciudad de destino"
                       required
                     >
+                      <option value="">Seleccione una ciudad</option>
+                      <option v-for="ciudad in ciudadesColombia" :key="ciudad" :value="ciudad">
+                        {{ ciudad }}
+                      </option>
+                    </select>
                     <div class="input-focus-border"></div>
                   </div>
                 </div>
@@ -316,10 +326,126 @@ export default {
         claseVehiculo: '',
         conductor: ''
       },
-      guardando: false
+      guardando: false,
+      ciudadesColombia: [
+        'Bogotá D.C.',
+        'Medellín',
+        'Cali',
+        'Barranquilla',
+        'Cartagena',
+        'Cúcuta',
+        'Bucaramanga',
+        'Pereira',
+        'Santa Marta',
+        'Ibagué',
+        'Pasto',
+        'Manizales',
+        'Neiva',
+        'Villavicencio',
+        'Armenia',
+        'Valledupar',
+        'Montería',
+        'Sincelejo',
+        'Popayán',
+        'Tunja',
+        'Florencia',
+        'Yopal',
+        'Arauca',
+        'Mocoa',
+        'San José del Guaviare',
+        'Leticia',
+        'Inírida',
+        'Puerto Carreño',
+        'Mitú',
+        'Quibdó',
+        'Riohacha',
+        'Valledupar',
+        'Santa Marta',
+        'Cartagena',
+        'Barranquilla',
+        'Sincelejo',
+        'Montería',
+        'Buenaventura',
+        'Tumaco',
+        'Ipiales',
+        'Pasto',
+        'Florencia',
+        'Neiva',
+        'Girardot',
+        'Zipaquirá',
+        'Soacha',
+        'Chía',
+        'Cajicá',
+        'La Calera',
+        'Sopo',
+        'Tabio',
+        'Tenjo',
+        'Gachancipá',
+        'Cogua',
+        'Nemocón',
+        'Suesca',
+        'Sesquilé',
+        'Guatavita',
+        'Guasca',
+        'Sopó',
+        'Tocancipá',
+        'Gachancipá',
+        'Bojacá',
+        'Madrid',
+        'Mosquera',
+        'Funza',
+        'Subachoque',
+        'El Rosal',
+        'Facatativá',
+        'Zipacón',
+        'Anolaima',
+        'Cachipay',
+        'San Antonio del Tequendama',
+        'Tena',
+        'La Mesa',
+        'Anapoima',
+        'Apulo',
+        'Viotá',
+        'Nilo',
+        'Girardot',
+        'Ricaurte',
+        'Agua de Dios',
+        'Granada',
+        'Guataquí',
+        'Jerusalén',
+        'Nariño',
+        'Nilo',
+        'Ricaurte',
+        'Silvania',
+        'Tibacuy',
+        'Venecia',
+        'Viotá',
+        'Yacopí',
+        'Zipacón'
+      ]
     }
   },
+  mounted() {
+    this.generarCodigo()
+    this.establecerFechaActual()
+  },
   methods: {
+    generarCodigo() {
+      // Generar código automático con formato: MAN-YYYYMMDD-XXXX
+      const fecha = new Date()
+      const año = fecha.getFullYear()
+      const mes = String(fecha.getMonth() + 1).padStart(2, '0')
+      const dia = String(fecha.getDate()).padStart(2, '0')
+      const numeroAleatorio = Math.floor(Math.random() * 9999).toString().padStart(4, '0')
+      
+      this.formulario.codigo = `MAN-${año}${mes}${dia}-${numeroAleatorio}`
+    },
+    establecerFechaActual() {
+      // Establecer la fecha actual por defecto
+      const hoy = new Date()
+      const fechaFormateada = hoy.toISOString().split('T')[0]
+      this.formulario.fecha = fechaFormateada
+    },
     guardarManifiesto() {
       this.guardando = true
       
@@ -366,6 +492,9 @@ export default {
         claseVehiculo: '',
         conductor: ''
       }
+      // Generar nuevo código y establecer fecha actual
+      this.generarCodigo()
+      this.establecerFechaActual()
     },
     
     formatearFecha(fecha) {
@@ -503,6 +632,15 @@ export default {
 .form-group {
   position: relative;
   margin-bottom: 1.5rem;
+}
+
+.form-text {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .form-label {
