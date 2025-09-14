@@ -114,7 +114,7 @@ export default {
 
 /* Card de bienvenida */
 .welcome-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
   color: white;
   border-radius: 16px;
   padding: 1.5rem 1.5rem;
@@ -439,7 +439,7 @@ export default {
 .title-icon {
   width: 45px;
   height: 45px;
-  background: linear-gradient(135deg, #0d6efd, #6610f2);
+  background: linear-gradient(135deg, #2a5298, #1e3c72);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -551,8 +551,8 @@ export default {
 }
 
 .status-optimized {
-  background: rgba(13, 110, 253, 0.1);
-  color: #0d6efd;
+  background: rgba(42, 82, 152, 0.1);
+  color: #2a5298;
 }
 
 .status-monitoring {
@@ -663,7 +663,7 @@ export default {
   box-shadow: 
     0 4px 20px rgba(0, 0, 0, 0.08),
     0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(13, 110, 253, 0.1);
+  border: 1px solid rgba(42, 82, 152, 0.1);
   position: relative;
   overflow: hidden;
 }
@@ -674,7 +674,7 @@ export default {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #0d6efd, #6610f2);
+  background: linear-gradient(90deg, #2a5298, #1e3c72);
   opacity: 0.3;
 }
 
@@ -693,7 +693,7 @@ export default {
 .info-icon {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #0d6efd, #6610f2);
+  background: linear-gradient(135deg, #2a5298, #1e3c72);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -736,7 +736,7 @@ export default {
   font-size: 0.85rem;
   font-weight: 600;
   color: #495057;
-  border: 1px solid rgba(13, 110, 253, 0.1);
+  border: 1px solid rgba(42, 82, 152, 0.1);
 }
 
 .info-actions {

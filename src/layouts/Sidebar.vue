@@ -333,7 +333,7 @@ export default {
 }
 
 .sidebar-title i {
-  color: #0d6efd;
+  color: #2a5298;
   font-size: 1rem;
 }
 
@@ -369,17 +369,17 @@ export default {
 }
 
 .nav-link:hover {
-  background: rgba(13, 110, 253, 0.08);
-  color: #0d6efd;
-  border-color: rgba(13, 110, 253, 0.2);
+  background: rgba(42, 82, 152, 0.08);
+  color: #2a5298;
+  border-color: rgba(42, 82, 152, 0.2);
   transform: translateX(4px);
 }
 
 .nav-link.active {
-  background: linear-gradient(135deg, #0d6efd, #6610f2);
+  background: linear-gradient(135deg, #2a5298, #1e3c72);
   color: white;
-  border-color: rgba(13, 110, 253, 0.3);
-  box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+  border-color: rgba(42, 82, 152, 0.3);
+  box-shadow: 0 4px 15px rgba(42, 82, 152, 0.3);
 }
 
 .nav-link.active .nav-icon {
@@ -402,7 +402,7 @@ export default {
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  color: #0d6efd;
+  color: #2a5298;
   transition: all 0.3s ease;
   flex-shrink: 0;
 }
@@ -482,9 +482,9 @@ export default {
 }
 
 .historial-link:hover {
-  background: rgba(13, 110, 253, 0.08);
-  color: #0d6efd;
-  border-color: rgba(13, 110, 253, 0.2);
+  background: rgba(42, 82, 152, 0.08);
+  color: #2a5298;
+  border-color: rgba(42, 82, 152, 0.2);
   text-decoration: none;
 }
 
@@ -497,7 +497,7 @@ export default {
   align-items: center;
   justify-content: center;
   font-size: 0.8rem;
-  color: #0d6efd;
+  color: #2a5298;
   margin-right: 0.75rem;
   flex-shrink: 0;
 }
@@ -651,7 +651,7 @@ export default {
   top: 0;
   bottom: 0;
   width: 3px;
-  background: linear-gradient(135deg, #0d6efd, #6610f2);
+  background: linear-gradient(135deg, #2a5298, #1e3c72);
   border-radius: 0 2px 2px 0;
   opacity: 0;
   transform: scaleY(0);

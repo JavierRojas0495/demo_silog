@@ -156,7 +156,7 @@ export default {
 <style scoped>
 /* Navbar principal */
 .navbar-modern {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
   backdrop-filter: blur(20px);
   border: none;
   box-shadow: 
@@ -479,7 +479,7 @@ export default {
 .user-avatar-dropdown {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #0d6efd, #6610f2);
+  background: linear-gradient(135deg, #2a5298, #1e3c72);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -531,8 +531,8 @@ export default {
 }
 
 .dropdown-item:hover {
-  background: rgba(13, 110, 253, 0.1);
-  color: #0d6efd;
+  background: rgba(42, 82, 152, 0.1);
+  color: #2a5298;
 }
 
 .dropdown-item.logout-item:hover {
@@ -584,23 +584,23 @@ export default {
   }
   
   .action-btn {
-    background: rgba(13, 110, 253, 0.1);
-    border: 1px solid rgba(13, 110, 253, 0.2);
-    color: #0d6efd;
+    background: rgba(42, 82, 152, 0.1);
+    border: 1px solid rgba(42, 82, 152, 0.2);
+    color: #2a5298;
   }
   
   .action-btn:hover {
-    background: rgba(13, 110, 253, 0.2);
+    background: rgba(42, 82, 152, 0.2);
   }
   
   .user-menu-toggle {
-    background: rgba(13, 110, 253, 0.1);
-    border: 1px solid rgba(13, 110, 253, 0.2);
+    background: rgba(42, 82, 152, 0.1);
+    border: 1px solid rgba(42, 82, 152, 0.2);
     color: #2c3e50;
   }
   
   .user-menu-toggle:hover {
-    background: rgba(13, 110, 253, 0.2);
+    background: rgba(42, 82, 152, 0.2);
   }
   
   .user-dropdown {

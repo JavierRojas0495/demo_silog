@@ -267,7 +267,7 @@ export default {
 }
 
 .logo-text span {
-  color: #666;
+  color: #6c757d;
   font-size: 0.9rem;
   font-weight: 500;
   text-transform: uppercase;
@@ -275,7 +275,7 @@ export default {
 }
 
 .subtitle {
-  color: #666;
+  color: #6c757d;
   margin: 0;
   font-size: 1rem;
   font-weight: 400;
@@ -301,7 +301,7 @@ export default {
   left: 15px;
   font-size: 1.2rem;
   z-index: 3;
-  color: #666;
+  color: #6c757d;
 }
 
 .password-toggle {
@@ -311,7 +311,7 @@ export default {
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
-  color: #666;
+  color: #6c757d;
   z-index: 3;
   padding: 5px;
   border-radius: 4px;
@@ -472,7 +472,7 @@ export default {
 }
 
 .demo-username {
-  color: #666;
+  color: #6c757d;
   font-size: 0.8rem;
   font-family: 'Courier New', monospace;
   background: rgba(255, 255, 255, 0.7);
@@ -483,7 +483,7 @@ export default {
 }
 
 .demo-password {
-  color: #666;
+  color: #6c757d;
   font-size: 0.8rem;
   font-family: 'Courier New', monospace;
   background: rgba(255, 255, 255, 0.7);
